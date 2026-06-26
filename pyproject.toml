@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-qa"
+version = "0.1.0"
+description = "Local codebase Q&A agent powered by Gemma 4 + Ollama"
+requires-python = ">=3.9"
+dependencies = [
+    "ollama>=0.2.0",
+    "chromadb>=0.5.0",
+    "click>=8.1.0",
+]
+
+[project.scripts]
+ai-qa = "ai_qa.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["."]
