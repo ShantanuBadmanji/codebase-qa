@@ -35,13 +35,43 @@ python --version
 
 ## Install
 
+Clone the repo first:
+
 ```bash
-# Clone / copy this folder, then:
-pip install -e .
+git clone <repo-url>
+cd codebase-qa
+```
+
+### Recommended: install globally with `uv` (use `ai-qa` in ANY project)
+
+This installs `ai-qa` into an isolated environment and puts the command on your `PATH`, so you can run it from the root of any project — no virtualenv to activate.
+
+```bash
+# editable (-e) so your code edits to ai_qa/ still take effect without reinstalling
+uv tool install --editable .
+
+# if `ai-qa` isn't found afterwards, add uv's bin dir to your PATH, then restart the shell
+uv tool update-shell
 
 # Verify
 ai-qa --help
 ```
+
+> Don't have uv? Install it from https://docs.astral.sh/uv/ (`curl -LsSf https://astral.sh/uv/install.sh | sh`),
+> or use the pip alternative below.
+
+### Alternative: pip / pipx
+
+```bash
+# Global CLI via pipx (isolated, on PATH everywhere)
+pipx install --editable .
+
+# Or a plain editable install into the current environment / venv
+pip install -e .
+```
+
+> Note: `uv run ai-qa ...` only works **inside this project's** directory. To use the command in
+> other projects, install it globally with one of the methods above.
 
 ---
 
@@ -122,6 +152,8 @@ Edit `indexer/indexer.py` to tune:
 
 ## Adding to a new project
 
+Once installed globally (see [Install](#install)), `ai-qa` works from the root of any codebase — Java, Go, TypeScript, etc. The command always operates on your **current working directory**.
+
 ```bash
 # Just cd into it and index — that's it
 cd /any/project
@@ -129,4 +161,4 @@ ai-qa index
 ai-qa chat
 ```
 
-Each project gets its own independent `.ai-agent/` index.
+Each project gets its own independent `.ai-agent/` index, so you can use the same `ai-qa` command across many projects without them interfering.
